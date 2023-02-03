@@ -229,10 +229,9 @@
 			};
 			buildConfigurationList = 7C15172F298D237B004DDDD0 /* Build configuration list for PBXProject "SurfTask" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 				ru,
 			);
