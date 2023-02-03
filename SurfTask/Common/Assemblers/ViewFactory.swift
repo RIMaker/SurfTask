@@ -29,7 +29,7 @@ class ViewFactoryImpl: ViewFactory {
 // MARK: - Supporting functions
 extension ViewFactoryImpl {
     func makeMainScreen() -> UIViewController {
-        let mainVC = ViewController()
+        let mainVC = MainViewControllerImpl()
         
         return mainVC
     }

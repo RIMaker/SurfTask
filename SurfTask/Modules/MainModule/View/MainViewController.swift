@@ -15,7 +15,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .systemBackground
     }
 
 
