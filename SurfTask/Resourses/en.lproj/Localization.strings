@@ -1,0 +1,23 @@
+/* 
+  Localization.strings
+  SurfTask
+
+  Created by Zhora Agadzhanyan on 03.02.2023.
+  
+*/
+
+"main-view-title" = "Стажировка в Surf";
+"main-description" = "Работай над реальными задачами под руководством опытного наставника и получи возможность стать частью команды мечты.";
+"secondary-description" = "Получай стипендию, выстраивай удобный график, работай на современном железе.";
+"primary-button-title" = "Отправить заявку";
+"primary-button-description" = "Хочешь к нам?";
+"chip-IOS" = "IOS";
+"chip-Android" = "Android";
+"chip-Design" = "Design";
+"chip-QA" = "QA";
+"chip-Flutter" = "Flutter";
+"chip-PM" = "PM";
+"chip-Frontend" = "Frontend";
+"chip-Backend" = "Backend";
+"chip-ML" = "ML";
+"chip-Analitic" = "Analitic";
