@@ -1,0 +1,4 @@
+*.generated.swift
+Pods
+.DS_Store
+SurfTask.xcodeproj/xcuserdata
