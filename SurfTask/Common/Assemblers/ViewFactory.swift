@@ -35,8 +35,7 @@ extension ViewFactoryImpl {
     }
     
     func makeLaunchScreen() -> UIViewController? {
-        let storyboard = UIStoryboard(name: "LaunchScreen", bundle: .main)
-        let launchScreen = storyboard.instantiateInitialViewController()
+        let launchScreen = R.storyboard.launchScreen.instantiateInitialViewController()
         return launchScreen
     }
 }

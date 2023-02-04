@@ -6,11 +6,14 @@
   
 */
 
+//MARK: Main View
 "main-view-title" = "Стажировка в Surf";
 "main-description" = "Работай над реальными задачами под руководством опытного наставника и получи возможность стать частью команды мечты.";
 "secondary-description" = "Получай стипендию, выстраивай удобный график, работай на современном железе.";
 "primary-button-title" = "Отправить заявку";
 "primary-button-description" = "Хочешь к нам?";
+
+//MARK: Chips
 "chip-IOS" = "IOS";
 "chip-Android" = "Android";
 "chip-Design" = "Design";

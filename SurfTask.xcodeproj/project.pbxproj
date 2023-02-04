@@ -19,6 +19,7 @@
 		7C15175E298D45E1004DDDD0 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C15175D298D45E1004DDDD0 /* MainPresenter.swift */; };
 		7C151768298D6125004DDDD0 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C15176A298D6125004DDDD0 /* Localization.strings */; };
 		7C15176D298D6262004DDDD0 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C15176C298D6262004DDDD0 /* R.generated.swift */; };
+		7C15176F298E968B004DDDD0 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C15176E298E968B004DDDD0 /* ModalView.swift */; };
 		C67C9004DF8B3001C2C0D659 /* Pods_SurfTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7E5BE274D9D6627F17AB0 /* Pods_SurfTask.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		7C15175D298D45E1004DDDD0 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		7C15176B298D6141004DDDD0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localization.strings; sourceTree = "<group>"; };
 		7C15176C298D6262004DDDD0 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		7C15176E298E968B004DDDD0 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		85B7E5BE274D9D6627F17AB0 /* Pods_SurfTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SurfTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				7C15173B298D237B004DDDD0 /* MainViewController.swift */,
+				7C15176E298E968B004DDDD0 /* ModalView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				7C15173C298D237B004DDDD0 /* MainViewController.swift in Sources */,
 				7C151738298D237B004DDDD0 /* AppDelegate.swift in Sources */,
 				7C15173A298D237B004DDDD0 /* SceneDelegate.swift in Sources */,
+				7C15176F298E968B004DDDD0 /* ModalView.swift in Sources */,
 				7C15174C298D374D004DDDD0 /* ViewFactory.swift in Sources */,
 				7C15176D298D6262004DDDD0 /* R.generated.swift in Sources */,
 			);

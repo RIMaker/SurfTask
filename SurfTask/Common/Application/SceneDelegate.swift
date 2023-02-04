@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.backgroundColor = .white
         window?.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
         window?.rootViewController = viewFactory.makeView(for: .launchScreen)
