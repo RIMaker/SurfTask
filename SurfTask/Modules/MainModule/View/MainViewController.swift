@@ -13,6 +13,14 @@ protocol MainViewController {
 
 class MainViewControllerImpl: UIViewController, MainViewController {
     
+    //MARK: Bottom view
+    lazy var bottomView: BottomView = {
+        let bView = BottomView()
+        
+        return bView
+    }()
+    
+    //MARK: Modal view
     lazy var modalView: ModalView = ModalViewImpl(
         contentView: contentContainerView,
         backgroundViewImage: R.image.backgroundImage())
@@ -63,6 +71,19 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     
     override func loadView() {
         view = modalView as! ModalViewImpl
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(bottomView)
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: 118)
+        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {

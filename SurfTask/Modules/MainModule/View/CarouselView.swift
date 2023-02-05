@@ -9,7 +9,7 @@ import UIKit
 
 class CarouselView: UICollectionView {
     
-    private let items = [
+    var items: [String] = [
         R.string.localization.chipIOS(),
         R.string.localization.chipAndroid(),
         R.string.localization.chipDesign(),
