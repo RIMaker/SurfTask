@@ -30,6 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func showAlert(title: String, message: String, actionTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: actionTitle, style: .default)
+        alertController.addAction(action)
+        
+        var rootViewController = UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.rootViewController
+        if let navigationController = rootViewController as? UINavigationController {
+            rootViewController = navigationController.viewControllers.first
+        }
+        if let tabBarController = rootViewController as? UITabBarController {
+            rootViewController = tabBarController.selectedViewController
+        }
+        
+        rootViewController?.present(alertController, animated: true, completion: nil)
+    }
 
 
 }

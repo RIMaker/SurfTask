@@ -54,5 +54,15 @@ class BottomView: UIView {
             primaryDescription.trailingAnchor.constraint(lessThanOrEqualTo: primaryButton.leadingAnchor, constant: -24),
             primaryDescription.widthAnchor.constraint(equalToConstant: 92)
         ])
+        primaryButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    private func onButtonTapped(_ sender: UIButton) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.showAlert(
+            title: "Поздравляем!",
+            message: "Ваша заявка успешно отправлена!",
+            actionTitle: "Закрыть")
     }
 }
