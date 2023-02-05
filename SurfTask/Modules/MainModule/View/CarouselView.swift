@@ -9,18 +9,7 @@ import UIKit
 
 class CarouselView: UICollectionView {
     
-    var items: [String] = [
-        R.string.localization.chipIOS(),
-        R.string.localization.chipAndroid(),
-        R.string.localization.chipDesign(),
-        R.string.localization.chipFlutter(),
-        R.string.localization.chipAnalitic(),
-        R.string.localization.chipML(),
-        R.string.localization.chipPM(),
-        R.string.localization.chipBackend(),
-        R.string.localization.chipQA(),
-        R.string.localization.chipFrontend()
-    ]
+    var items: [String]?
     
     private var selectedItems = Set<Int>()
     
@@ -59,13 +48,17 @@ class CarouselView: UICollectionView {
 extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        items.count > 10 ? 10: items.count
+        if let count = items?.count {
+            return count > 10 ? 10: count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: ChipsCell.cellIdentifier, for: indexPath) as! ChipsCell
             
-        myCell.chips = items[indexPath.item]
+        myCell.chips = items?[indexPath.item]
         if selectedItems.contains(indexPath.item) {
             myCell.isActive = true
         } else {
@@ -87,9 +80,9 @@ extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension CarouselView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = items[indexPath.item].size(withAttributes: [
+        let width = items?[indexPath.item].size(withAttributes: [
             NSAttributedString.Key.font : R.font.sfProDisplayMedium(size: 14) ?? .systemFont(ofSize: 14)
         ]).width.rounded(.up)
-        return CGSize(width: width + horizontalPadding, height: height)
+        return CGSize(width: (width ?? 0) + horizontalPadding, height: height)
     }
 }

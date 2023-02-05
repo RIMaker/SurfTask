@@ -21,6 +21,7 @@
 		7C15176D298D6262004DDDD0 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C15176C298D6262004DDDD0 /* R.generated.swift */; };
 		7C15176F298E968B004DDDD0 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C15176E298E968B004DDDD0 /* ModalView.swift */; };
 		7CA0E758298FF0CF006B5166 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0E757298FF0CF006B5166 /* BottomView.swift */; };
+		7CA0E75B29900208006B5166 /* ChipsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0E75A29900208006B5166 /* ChipsModel.swift */; };
 		7CBC86D4298F9AC700BDB488 /* ChipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */; };
 		7CBC86D6298F9B3100BDB488 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D5298F9B3100BDB488 /* CarouselView.swift */; };
 		7CBC86D8298FB84D00BDB488 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D7298FB84D00BDB488 /* ContainerView.swift */; };
@@ -46,6 +47,7 @@
 		7C15176C298D6262004DDDD0 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		7C15176E298E968B004DDDD0 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		7CA0E757298FF0CF006B5166 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		7CA0E75A29900208006B5166 /* ChipsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsModel.swift; sourceTree = "<group>"; };
 		7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsCell.swift; sourceTree = "<group>"; };
 		7CBC86D5298F9B3100BDB488 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		7CBC86D7298FB84D00BDB488 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				7C15174F298D38FC004DDDD0 /* Application */,
 				7C15175A298D3EAF004DDDD0 /* Assemblers */,
+				7CA0E759299001E0006B5166 /* Models */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -202,6 +205,14 @@
 				7C15175D298D45E1004DDDD0 /* MainPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7CA0E759299001E0006B5166 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7CA0E75A29900208006B5166 /* ChipsModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +360,7 @@
 				7CA0E758298FF0CF006B5166 /* BottomView.swift in Sources */,
 				7C151738298D237B004DDDD0 /* AppDelegate.swift in Sources */,
 				7CBC86D6298F9B3100BDB488 /* CarouselView.swift in Sources */,
+				7CA0E75B29900208006B5166 /* ChipsModel.swift in Sources */,
 				7C15173A298D237B004DDDD0 /* SceneDelegate.swift in Sources */,
 				7C15176F298E968B004DDDD0 /* ModalView.swift in Sources */,
 				7C15174C298D374D004DDDD0 /* ViewFactory.swift in Sources */,

@@ -53,6 +53,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     
     lazy var carouselView: UICollectionView = {
         let carousel = CarouselView(frame: .zero)
+        carousel.items = ChipsModel.shared.items
         return carousel
     }()
     
