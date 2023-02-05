@@ -22,6 +22,7 @@
 		7C15176F298E968B004DDDD0 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C15176E298E968B004DDDD0 /* ModalView.swift */; };
 		7CBC86D4298F9AC700BDB488 /* ChipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */; };
 		7CBC86D6298F9B3100BDB488 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D5298F9B3100BDB488 /* CarouselView.swift */; };
+		7CBC86D8298FB84D00BDB488 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D7298FB84D00BDB488 /* ContainerView.swift */; };
 		C67C9004DF8B3001C2C0D659 /* Pods_SurfTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7E5BE274D9D6627F17AB0 /* Pods_SurfTask.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		7C15176E298E968B004DDDD0 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsCell.swift; sourceTree = "<group>"; };
 		7CBC86D5298F9B3100BDB488 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		7CBC86D7298FB84D00BDB488 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		85B7E5BE274D9D6627F17AB0 /* Pods_SurfTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SurfTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 				7C15176E298E968B004DDDD0 /* ModalView.swift */,
 				7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */,
 				7CBC86D5298F9B3100BDB488 /* CarouselView.swift */,
+				7CBC86D7298FB84D00BDB488 /* ContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CBC86D8298FB84D00BDB488 /* ContainerView.swift in Sources */,
 				7C15175E298D45E1004DDDD0 /* MainPresenter.swift in Sources */,
 				7CBC86D4298F9AC700BDB488 /* ChipsCell.swift in Sources */,
 				7C15173C298D237B004DDDD0 /* MainViewController.swift in Sources */,

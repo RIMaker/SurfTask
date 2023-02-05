@@ -8,8 +8,7 @@
 import UIKit
 
 protocol ModalView {
-    func animatePresentContainer()
-    func animateShowBackgroundView()
+    func animate()
 }
 
 class ModalViewImpl: UIView, ModalView {
@@ -60,18 +59,9 @@ class ModalViewImpl: UIView, ModalView {
         fatalError("init(coder) is not implemented")
     }
     
-    func animatePresentContainer() {
-        UIView.animate(withDuration: 0.3) {
-            self.containerViewBottomConstraint?.constant = 0
-            self.layoutIfNeeded()
-        }
-    }
-    
-    func animateShowBackgroundView() {
-        backgroundView.alpha = 0
-        UIView.animate(withDuration: 0.4) {
-            self.backgroundView.alpha = self.maxBackgroundAlpha
-        }
+    func animate() {
+        animateShowBackgroundView()
+        animatePresentContainer()
     }
     
     private func setupView() {
@@ -97,10 +87,10 @@ class ModalViewImpl: UIView, ModalView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
     
-            contentView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 24),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
-            contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            contentView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
+            contentView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         ])
         
         containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
@@ -149,6 +139,20 @@ class ModalViewImpl: UIView, ModalView {
             self.layoutIfNeeded()
         }
         currentContainerHeight = height
+    }
+    
+    private func animatePresentContainer() {
+        UIView.animate(withDuration: 0.3) {
+            self.containerViewBottomConstraint?.constant = 0
+            self.layoutIfNeeded()
+        }
+    }
+    
+    private func animateShowBackgroundView() {
+        backgroundView.alpha = 0
+        UIView.animate(withDuration: 0.4) {
+            self.backgroundView.alpha = self.maxBackgroundAlpha
+        }
     }
 
 }

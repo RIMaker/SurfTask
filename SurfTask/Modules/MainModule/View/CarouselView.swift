@@ -29,6 +29,7 @@ class CarouselView: UICollectionView {
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout = UICollectionViewLayout()) {
         let myLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        myLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         myLayout.itemSize = CGSize(width: 100, height: height)
         myLayout.scrollDirection = .horizontal
         myLayout.minimumLineSpacing = 12;
@@ -87,8 +88,8 @@ extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
 extension CarouselView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = items[indexPath.item].size(withAttributes: [
-            NSAttributedString.Key.font : R.font.sfProDisplayRegular(size: 14) ?? .systemFont(ofSize: 14)
-        ]).width
+            NSAttributedString.Key.font : R.font.sfProDisplayMedium(size: 14) ?? .systemFont(ofSize: 14)
+        ]).width.rounded(.up)
         return CGSize(width: width + horizontalPadding, height: height)
     }
 }

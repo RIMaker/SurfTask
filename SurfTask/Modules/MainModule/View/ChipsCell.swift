@@ -42,7 +42,7 @@ class ChipsCell: UICollectionViewCell {
         lbl.text = ""
         lbl.textAlignment = .center
         lbl.textColor = R.color.darkTextColor()
-        lbl.font = R.font.sfProDisplayRegular(size: 14)
+        lbl.font = R.font.sfProDisplayMedium(size: 14)
         return lbl
     }()
     

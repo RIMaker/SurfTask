@@ -14,7 +14,7 @@ protocol MainViewController {
 class MainViewControllerImpl: UIViewController, MainViewController {
     
     lazy var modalView: ModalView = ModalViewImpl(
-        contentView: contentStackView,
+        contentView: contentContainerView,
         backgroundViewImage: R.image.backgroundImage())
     
     lazy var titleLabel: UILabel = {
@@ -48,18 +48,17 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return carousel
     }()
     
-    lazy var contentStackView: UIStackView = {
+    lazy var contentContainerView: ContainerView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [
-            titleLabel,
-            mainDescription,
-            carouselView,
-            secondaryDescription,
-            spacer
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = 12.0
-        return stackView
+        let container = ContainerView()
+        container.add(subview: titleLabel, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
+        container.add(subview: mainDescription, topPadding: 12, leadingPadding: 20, trailingPadding: 20)
+        container.add(subview: carouselView, topPadding: 12)
+        container.add(subview: secondaryDescription, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
+        container.add(subview: spacer, bottomPadding: 0)
+        
+        container.backgroundColor = R.color.mainViewBackgroundColor()
+        return container
     }()
     
     override func loadView() {
@@ -68,8 +67,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        modalView.animateShowBackgroundView()
-        modalView.animatePresentContainer()
+        modalView.animate()
     }
     
 }
