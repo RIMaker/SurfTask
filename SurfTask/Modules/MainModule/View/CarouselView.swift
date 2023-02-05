@@ -59,7 +59,7 @@ class CarouselView: UICollectionView {
 extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        items.count
+        items.count > 10 ? 10: items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -81,7 +81,7 @@ extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
         } else {
             selectedItems.insert(indexPath.item)
         }
-        collectionView.reloadItems(at: [indexPath])
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }
 
