@@ -43,11 +43,17 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return label
     }()
     
+    lazy var carouselView: UICollectionView = {
+        let carousel = CarouselView(frame: .zero)
+        return carousel
+    }()
+    
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
         let stackView = UIStackView(arrangedSubviews: [
             titleLabel,
             mainDescription,
+            carouselView,
             secondaryDescription,
             spacer
         ])
