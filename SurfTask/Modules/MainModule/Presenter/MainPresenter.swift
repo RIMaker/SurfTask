@@ -8,16 +8,20 @@
 import Foundation
 
 protocol MainPresenter {
+    var chips: [String]? { get }
+    init(view: MainViewController?, chips: [String]?)
     func viewShown()
-    init(view: MainViewController?)
 }
 
 class MainPresenterImpl: MainPresenter {
     
+    var chips: [String]?
+    
     private weak var view: MainViewController?
     
-    required init(view: MainViewController?) {
+    required init(view: MainViewController?, chips: [String]?) {
         self.view = view
+        self.chips = chips
     }
     
     func viewShown() {
