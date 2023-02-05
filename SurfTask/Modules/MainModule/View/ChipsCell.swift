@@ -65,7 +65,7 @@ class ChipsCell: UICollectionViewCell {
         fatalError("init(coder) is not implemented")
     }
     
-    func toggleColors() {
+    private func toggleColors() {
         if isActive {
             name.textColor = R.color.lightTextColor()
             contentView.backgroundColor = R.color.activeChipsColor()
