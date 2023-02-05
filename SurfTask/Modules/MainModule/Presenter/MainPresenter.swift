@@ -8,9 +8,20 @@
 import Foundation
 
 protocol MainPresenter {
-    
+    func viewShown()
+    init(view: MainViewController?)
 }
 
 class MainPresenterImpl: MainPresenter {
+    
+    private weak var view: MainViewController?
+    
+    required init(view: MainViewController?) {
+        self.view = view
+    }
+    
+    func viewShown() {
+        view?.setupViews()
+    }
     
 }

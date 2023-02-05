@@ -7,25 +7,27 @@
 
 import UIKit
 
-protocol MainViewController {
-    
+protocol MainViewController: AnyObject {
+    func setupViews()
 }
 
 class MainViewControllerImpl: UIViewController, MainViewController {
     
+    var presenter: MainPresenter?
+    
     //MARK: Bottom view
-    lazy var bottomView: BottomView = {
+    private lazy var bottomView: BottomView = {
         let bView = BottomView()
         
         return bView
     }()
     
     //MARK: Modal view
-    lazy var modalView: ModalView = ModalViewImpl(
+    private lazy var modalView: ModalView = ModalViewImpl(
         contentView: contentContainerView,
         backgroundViewImage: R.image.backgroundImage())
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = R.string.localization.mainViewTitle()
         label.font = R.font.sfProDisplayBold(size: 24)
@@ -33,7 +35,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return label
     }()
     
-    lazy var mainDescription: UILabel = {
+    private lazy var mainDescription: UILabel = {
         let label = UILabel()
         label.text = R.string.localization.mainDescription()
         label.font = R.font.sfProDisplayRegular(size: 14)
@@ -42,7 +44,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return label
     }()
     
-    lazy var secondaryDescription: UILabel = {
+    private lazy var secondaryDescription: UILabel = {
         let label = UILabel()
         label.text = R.string.localization.secondaryDescription()
         label.font = R.font.sfProDisplayRegular(size: 14)
@@ -51,13 +53,13 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return label
     }()
     
-    lazy var carouselView: UICollectionView = {
+    private lazy var carouselView: UICollectionView = {
         let carousel = CarouselView(frame: .zero)
         carousel.items = ChipsModel.shared.items
         return carousel
     }()
     
-    lazy var contentContainerView: ContainerView = {
+    private lazy var contentContainerView: ContainerView = {
         let spacer = UIView()
         let container = ContainerView()
         container.add(subview: titleLabel, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
@@ -77,6 +79,15 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter?.viewShown()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        modalView.animate()
+    }
+    
+    func setupViews() {
         view.addSubview(bottomView)
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -86,11 +97,5 @@ class MainViewControllerImpl: UIViewController, MainViewController {
             bottomView.heightAnchor.constraint(equalToConstant: 118)
         ])
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        modalView.animate()
-    }
-    
 }
 

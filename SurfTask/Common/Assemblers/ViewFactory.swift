@@ -30,7 +30,8 @@ class ViewFactoryImpl: ViewFactory {
 extension ViewFactoryImpl {
     func makeMainScreen() -> UIViewController {
         let mainVC = MainViewControllerImpl()
-        
+        let presenter = MainPresenterImpl(view: mainVC)
+        mainVC.presenter = presenter
         return mainVC
     }
     
