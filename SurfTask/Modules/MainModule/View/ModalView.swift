@@ -88,7 +88,7 @@ class ModalViewImpl: UIView, ModalView {
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
     
             contentView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -118),
+            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         ])
