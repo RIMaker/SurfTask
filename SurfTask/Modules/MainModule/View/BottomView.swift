@@ -25,6 +25,7 @@ class BottomView: UIView {
         lbl.text = R.string.localization.primaryButtonDescription()
         lbl.font = R.font.sfProDisplayRegular(size: 14)
         lbl.textColor = R.color.thinTextColor()
+        lbl.sizeToFit()
         return lbl
     }()
 
@@ -51,8 +52,7 @@ class BottomView: UIView {
             primaryButton.widthAnchor.constraint(equalToConstant: 219),
             primaryDescription.centerYAnchor.constraint(equalTo: primaryButton.centerYAnchor),
             primaryDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            primaryDescription.trailingAnchor.constraint(lessThanOrEqualTo: primaryButton.leadingAnchor, constant: -24),
-            primaryDescription.widthAnchor.constraint(equalToConstant: 92)
+            primaryDescription.trailingAnchor.constraint(lessThanOrEqualTo: primaryButton.leadingAnchor, constant: -24)
         ])
         primaryButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
     }
