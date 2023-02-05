@@ -61,8 +61,9 @@ class BottomView: UIView {
     private func onButtonTapped(_ sender: UIButton) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.showAlert(
-            title: "Поздравляем!",
-            message: "Ваша заявка успешно отправлена!",
-            actionTitle: "Закрыть")
+            title: R.string.localization.primaryButtonAlertTitle(),
+            message: R.string.localization.primaryButtonAlertMessage(),
+            actionTitle: R.string.localization.primaryButtonAlertActionTitle()
+        )
     }
 }

@@ -13,6 +13,10 @@
 "primary-button-title" = "Отправить заявку";
 "primary-button-description" = "Хочешь к нам?";
 
+"primary-button-alert-title" = "Поздравляем!";
+"primary-button-alert-message" = "Ваша заявка успешно отправлена!";
+"primary-button-alert-action-title" = "Закрыть";
+
 //MARK: Chips
 "chip-IOS" = "IOS";
 "chip-Android" = "Android";
