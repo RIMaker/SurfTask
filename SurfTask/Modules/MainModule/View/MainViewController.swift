@@ -59,6 +59,12 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return carousel
     }()
     
+    private lazy var doubleCarouselView: DoubleCarouselView = {
+        let carousel = DoubleCarouselView(frame: .zero)
+        carousel.items = presenter?.chips
+        return carousel
+    }()
+    
     private lazy var contentContainerView: ContainerView = {
         let spacer = UIView()
         let container = ContainerView()
@@ -66,6 +72,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         container.add(subview: mainDescription, topPadding: 12, leadingPadding: 20, trailingPadding: 20)
         container.add(subview: carouselView, topPadding: 12)
         container.add(subview: secondaryDescription, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
+        container.add(subview: doubleCarouselView, topPadding: 12)
         container.add(subview: spacer, bottomPadding: -118)
         
         container.backgroundColor = R.color.mainViewBackgroundColor()
@@ -85,6 +92,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         modalView.animate()
+        doubleCarouselView.width = view.frame.width
     }
     
     func setupViews() {

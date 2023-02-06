@@ -80,9 +80,7 @@ extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension CarouselView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = items?[indexPath.item].size(withAttributes: [
-            NSAttributedString.Key.font : R.font.sfProDisplayMedium(size: 14) ?? .systemFont(ofSize: 14)
-        ]).width.rounded(.up)
+        let width = items?[indexPath.item].width(font: R.font.sfProDisplayMedium(size: 14))
         return CGSize(width: (width ?? 0) + horizontalPadding, height: height)
     }
 }
