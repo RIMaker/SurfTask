@@ -92,7 +92,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     }()
     
     override func loadView() {
-        view = modalView as! ModalViewImpl
+        view = modalView as? ModalViewImpl
     }
     
     override func viewDidLoad() {
