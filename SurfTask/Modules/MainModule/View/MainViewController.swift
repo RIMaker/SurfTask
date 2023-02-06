@@ -65,7 +65,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         return label
     }()
     
-    private lazy var carouselView: UICollectionView = {
+    private lazy var carouselView: CarouselView = {
         let carousel = CarouselView(frame: .zero)
         carousel.items = presenter?.chips
         return carousel

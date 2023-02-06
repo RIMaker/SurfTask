@@ -10,6 +10,8 @@ import UIKit
 class DoubleCarouselView: UIScrollView {
     
     var items: [String]?
+    
+    //required parametr. You should set it after getting superview width
     var width: CGFloat = 0 {
         didSet {
             var i: CGFloat = 0
