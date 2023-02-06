@@ -15,7 +15,12 @@ class ChipsCell: UICollectionViewCell {
         didSet {
             if let chips = chips {
                 DispatchQueue.main.async { [weak self] in
-                    self?.name.text = chips
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.alignment = NSTextAlignment.center
+                    paragraphStyle.lineHeightMultiple = 1.2
+                    self?.name.attributedText = NSMutableAttributedString(
+                        string: chips,
+                        attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
                 }
             }
         }
@@ -39,8 +44,6 @@ class ChipsCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.numberOfLines = 1
-        lbl.text = ""
-        lbl.textAlignment = .center
         lbl.textColor = R.color.darkTextColor()
         lbl.font = R.font.sfProDisplayMedium(size: 14)
         return lbl

@@ -29,27 +29,39 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = R.string.localization.mainViewTitle()
         label.font = R.font.sfProDisplayBold(size: 24)
         label.textColor = R.color.darkTextColor()
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.12
+        label.attributedText = NSMutableAttributedString(
+            string: R.string.localization.mainViewTitle(),
+            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         return label
     }()
     
     private lazy var mainDescription: UILabel = {
         let label = UILabel()
-        label.text = R.string.localization.mainDescription()
         label.font = R.font.sfProDisplayRegular(size: 14)
         label.textColor = R.color.thinTextColor()
         label.numberOfLines = 0
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.2
+        label.attributedText = NSMutableAttributedString(
+            string: R.string.localization.mainDescription(),
+            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         return label
     }()
     
     private lazy var secondaryDescription: UILabel = {
         let label = UILabel()
-        label.text = R.string.localization.secondaryDescription()
         label.font = R.font.sfProDisplayRegular(size: 14)
         label.textColor = R.color.thinTextColor()
         label.numberOfLines = 0
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.2
+        label.attributedText = NSMutableAttributedString(
+            string: R.string.localization.secondaryDescription(),
+            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         return label
     }()
     

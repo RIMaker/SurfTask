@@ -49,7 +49,7 @@ class DoubleCarouselView: UIScrollView {
         
         let view = UIView(frame: CGRect(x: withNumber * width, y: 0, width: width, height: scrollViewHeight))
         
-        var stringWidth = items[itemIndex].width(font: R.font.sfProDisplayMedium(size: 14))
+        var stringWidth = itemTextWidth(item: items[itemIndex])
         var flag = true
         while itemIndex < items.count && flag {
             switch lineNumber {
@@ -63,7 +63,7 @@ class DoubleCarouselView: UIScrollView {
                     contentWidth = size - (contentWidth == 0 ? paddingBetweenItems: horizontalSelfPadding)
                     itemIndex += 1
                     guard itemIndex < items.count else { break }
-                    stringWidth = items[itemIndex].width(font: R.font.sfProDisplayMedium(size: 14))
+                    stringWidth = itemTextWidth(item: items[itemIndex])
                     size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
                 }
                 contentWidth = 0
@@ -78,7 +78,7 @@ class DoubleCarouselView: UIScrollView {
                     contentWidth = size - (contentWidth == 0 ? paddingBetweenItems: horizontalSelfPadding)
                     itemIndex += 1
                     guard itemIndex < items.count else { break }
-                    stringWidth = items[itemIndex].width(font: R.font.sfProDisplayMedium(size: 14))
+                    stringWidth = itemTextWidth(item: items[itemIndex])
                     size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
                 }
                 contentWidth = 0
@@ -94,10 +94,20 @@ class DoubleCarouselView: UIScrollView {
         let btn = DoubleCarouselButton(frame: CGRect(
             x: contentWidth + (contentWidth == 0 ? horizontalSelfPadding: paddingBetweenItems),
             y: originY,
-            width: horizontalItemInsidePadding + item.width(font: R.font.sfProDisplayMedium(size: 14)),
+            width: horizontalItemInsidePadding + itemTextWidth(item: item),
             height: itemHeight))
-        btn.setTitle(item, for: .normal)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.2
+        paragraphStyle.alignment = NSTextAlignment.center
+        let text = NSMutableAttributedString(
+            string: item,
+            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        btn.setAttributedTitle(text, for: .normal)
         return btn
+    }
+    
+    private func itemTextWidth(item: String) -> CGFloat {
+        return item.width(font: R.font.sfProDisplayMedium(size: 14))
     }
     
     required init?(coder: NSCoder) {

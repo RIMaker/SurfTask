@@ -11,10 +11,16 @@ class BottomView: UIView {
     
     private lazy var primaryButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle(R.string.localization.primaryButtonTitle(), for: .normal)
         btn.titleLabel?.font = R.font.sfProDisplayMedium(size: 16)
         btn.setTitleColor(R.color.lightTextColor(), for: .normal)
         btn.backgroundColor = R.color.primaryButtonColor()
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.05
+        paragraphStyle.alignment = NSTextAlignment.center
+        let text = NSMutableAttributedString(
+            string: R.string.localization.primaryButtonTitle(),
+            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        btn.setAttributedTitle(text, for: .normal)
         btn.layer.cornerRadius = 30
         btn.clipsToBounds = true
         return btn
@@ -22,9 +28,14 @@ class BottomView: UIView {
     
     private lazy var primaryDescription: UILabel = {
         let lbl = UILabel()
-        lbl.text = R.string.localization.primaryButtonDescription()
         lbl.font = R.font.sfProDisplayRegular(size: 14)
         lbl.textColor = R.color.thinTextColor()
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.2
+        paragraphStyle.alignment = NSTextAlignment.center
+        lbl.attributedText = NSMutableAttributedString(
+            string: R.string.localization.primaryButtonDescription(),
+            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         lbl.sizeToFit()
         return lbl
     }()
