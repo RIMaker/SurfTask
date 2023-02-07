@@ -26,17 +26,8 @@ class BottomView: UIView {
         return btn
     }()
     
-    private lazy var primaryDescription: UILabel = {
-        let lbl = UILabel()
-        lbl.font = R.font.sfProDisplayRegular(size: 14)
-        lbl.textColor = R.color.thinTextColor()
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.2
-        paragraphStyle.alignment = NSTextAlignment.center
-        lbl.attributedText = NSMutableAttributedString(
-            string: R.string.localization.primaryButtonDescription(),
-            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-        lbl.sizeToFit()
+    private lazy var primaryDescription: DescriptionLabel = {
+        let lbl = DescriptionLabel(with: R.string.localization.primaryButtonDescription())
         return lbl
     }()
 
