@@ -147,7 +147,6 @@ extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource
         } else {
             selectedItems.insert(indexPath.item)
         }
-        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }
 
