@@ -101,10 +101,14 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         presenter?.viewShown()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        doubleCarouselView.width = view.frame.width
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         modalView.animate()
-        doubleCarouselView.width = view.frame.width
     }
     
     func setupViews() {
