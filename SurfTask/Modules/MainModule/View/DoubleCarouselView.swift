@@ -9,19 +9,18 @@ import UIKit
 
 class DoubleCarouselView: UIScrollView {
     
-    var items: [String]?
-    
-    //required parametr. You should set it after getting superview width
-    var width: CGFloat = 0 {
+    var items: [String]? {
         didSet {
             var i: CGFloat = 0
             while let view = getPage(withNumber: i) {
                 addSubview(view)
                 i += 1
             }
-            contentSize = CGSize(width: i * width, height: scrollViewHeight)
+            contentSize = CGSize(width: i * screenWidth, height: scrollViewHeight)
         }
     }
+    
+    private let screenWidth: CGFloat = UIScreen.main.bounds.width
 
     private let itemHeight: CGFloat = 44
     private let scrollViewHeight: CGFloat = 100
@@ -49,7 +48,7 @@ class DoubleCarouselView: UIScrollView {
     private func getPage(withNumber: CGFloat) -> UIView? {
         guard let items = items, itemIndex < items.count else { return nil }
         
-        let view = UIView(frame: CGRect(x: withNumber * width, y: 0, width: width, height: scrollViewHeight))
+        let view = UIView(frame: CGRect(x: withNumber * screenWidth, y: 0, width: screenWidth, height: scrollViewHeight))
         
         var stringWidth = itemTextWidth(item: items[itemIndex])
         var flag = true
@@ -58,7 +57,7 @@ class DoubleCarouselView: UIScrollView {
             case 1:
                 //прибавил лишнее
                 var size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
-                while size <= width && itemIndex < items.count {
+                while size <= screenWidth && itemIndex < items.count {
                     let carouselItem = button(for: items[itemIndex], originY: 0)
                     view.addSubview(carouselItem)
                     //отнял лишнее
@@ -73,7 +72,7 @@ class DoubleCarouselView: UIScrollView {
             case 2:
                 //прибавил лишнее
                 var size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
-                while size <= width && itemIndex < items.count {
+                while size <= screenWidth && itemIndex < items.count {
                     let carouselItem = button(for: items[itemIndex], originY: itemHeight + paddingBetweenItems)
                     view.addSubview(carouselItem)
                     //отнял лишнее
