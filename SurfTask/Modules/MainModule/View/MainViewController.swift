@@ -50,7 +50,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     }()
     
     private lazy var carouselView: CarouselView = {
-        let carousel = CarouselView(frame: .zero)
+        let carousel = CarouselViewImpl(frame: .zero)
         carousel.items = presenter?.chips
         return carousel
     }()
@@ -66,7 +66,9 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         let container = ContainerView()
         container.add(subview: titleLabel, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
         container.add(subview: mainDescription, topPadding: 12, leadingPadding: 20, trailingPadding: 20)
-        container.add(subview: carouselView, topPadding: 12)
+        if let carousel = carouselView as? CarouselViewImpl {
+            container.add(subview: carousel, topPadding: 12)
+        }
         container.add(subview: secondaryDescription, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
         container.add(subview: doubleCarouselView, topPadding: 12)
         container.add(subview: spacer, bottomPadding: -118)
@@ -83,6 +85,10 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         super.viewDidLoad()
         
         presenter?.viewShown()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        carouselView.scrollToMinContentOffset(animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {

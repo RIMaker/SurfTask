@@ -7,18 +7,42 @@
 
 import UIKit
 
-class CarouselView: UICollectionView {
+protocol CarouselView {
+    func scrollToMinContentOffset(animated: Bool)
+    func scrollToMaxContentOffset(animated: Bool)
+}
+
+class CarouselViewImpl: UICollectionView, CarouselView {
     
-    var items: [String]?
+    var items: [String]? {
+        didSet {
+            if let items = items, items.count > 10 {
+                self.items = Array(items[0..<10])
+            }
+        }
+    }
     
     private var selectedItems = Set<Int>()
     
     private let height: CGFloat = 44
     private let horizontalPadding: CGFloat = 48
     
+    private var minContentOffset: CGPoint {
+        let firstItemWidth = items?.first?.width(font: R.font.sfProDisplayMedium(size: 14)) ?? 0
+        return CGPoint(
+            x: horizontalPadding + firstItemWidth - 8,
+            y: -contentInset.top)
+    }
+    
+    private var maxContentOffset: CGPoint {
+        let lastItemWidth = items?.last?.width(font: R.font.sfProDisplayMedium(size: 14)) ?? 0
+        return CGPoint(
+            x: contentSize.width - bounds.width - horizontalPadding - lastItemWidth + 8,
+            y: contentSize.height - bounds.height + contentInset.bottom)
+    }
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout = UICollectionViewLayout()) {
-        let myLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        myLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        let myLayout = UICollectionViewFlowLayout()
         myLayout.itemSize = CGSize(width: 100, height: height)
         myLayout.scrollDirection = .horizontal
         myLayout.minimumLineSpacing = 12;
@@ -32,7 +56,16 @@ class CarouselView: UICollectionView {
         fatalError("init(coder) is not implemented")
     }
     
+    func scrollToMinContentOffset(animated: Bool) {
+        setContentOffset(minContentOffset, animated: animated)
+    }
+    
+    func scrollToMaxContentOffset(animated: Bool) {
+        setContentOffset(maxContentOffset, animated: animated)
+    }
+    
     private func setup() {
+        contentInset = .init(top: 0, left: 20, bottom: 0, right: 20)
         backgroundColor = R.color.mainViewBackgroundColor()
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
@@ -44,8 +77,48 @@ class CarouselView: UICollectionView {
     }
 }
 
+// MARK: ScrollView delegate
+extension CarouselViewImpl {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let queue = DispatchQueue(label: "myQueue", qos: .userInteractive)
+        switch contentOffset.x {
+        case ...(-20):
+            queue.async { [weak self] in
+                let last = self?.items?.removeLast()
+                guard let last = last, let count = self?.items?.count else { return }
+                self?.items?.insert(last, at: 0)
+                self?.selectedItems = Set(self?.selectedItems.map{
+                    ($0 == count) ? ($0 - count): $0 + 1
+                } ?? [])
+                DispatchQueue.main.async { [weak self] in
+                    UIView.performWithoutAnimation {
+                        self?.reloadData()
+                        self?.scrollToMinContentOffset(animated: false)
+                    }
+                }
+            }
+        case (contentSize.width - bounds.width + 20)...:
+            queue.async { [weak self] in
+                let first = self?.items?.removeFirst()
+                guard let first = first, let count = self?.items?.count else { return }
+                self?.items?.append(first)
+                self?.selectedItems = Set(self?.selectedItems.map{
+                    ($0 == 0) ? count: $0 - 1
+                } ?? [])
+                DispatchQueue.main.async { [weak self] in
+                    UIView.performWithoutAnimation {
+                        self?.reloadData()
+                        self?.scrollToMaxContentOffset(animated: false)
+                    }
+                }
+            }
+        default: break
+        }
+    }
+}
+
 // MARK: Delegate
-extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = items?.count {
@@ -78,7 +151,7 @@ extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-extension CarouselView: UICollectionViewDelegateFlowLayout {
+extension CarouselViewImpl: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = items?[indexPath.item].width(font: R.font.sfProDisplayMedium(size: 14))
         return CGSize(width: (width ?? 0) + horizontalPadding, height: height)
