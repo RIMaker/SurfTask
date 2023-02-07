@@ -45,10 +45,10 @@ class DoubleCarouselView: UIScrollView {
         showsVerticalScrollIndicator = false
     }
     
-    private func getPage(withNumber: CGFloat) -> UIView? {
+    private func getPage(withNumber number: CGFloat) -> UIView? {
         guard let items = items, itemIndex < items.count else { return nil }
         
-        let view = UIView(frame: CGRect(x: withNumber * screenWidth, y: 0, width: screenWidth, height: scrollViewHeight))
+        let view = UIView(frame: CGRect(x: number * screenWidth, y: 0, width: screenWidth, height: scrollViewHeight))
         
         var stringWidth = itemTextWidth(item: items[itemIndex])
         var flag = true
