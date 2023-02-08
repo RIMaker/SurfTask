@@ -42,7 +42,7 @@ class CarouselViewImpl: UICollectionView, CarouselView {
     
     private var isInfiniteScrollable: Bool {
         if let firstItemWidth = firstItem?.width(font: R.font.sfProDisplayMedium(size: 14)) {
-            return !((contentSize.width - firstItemWidth - horizontalPadding + 8) < bounds.width)
+            return !((contentSize.width - firstItemWidth - horizontalPadding) < bounds.width)
         } else {
             return false
         }
