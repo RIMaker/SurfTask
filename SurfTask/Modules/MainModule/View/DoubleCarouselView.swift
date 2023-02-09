@@ -9,7 +9,7 @@ import UIKit
 
 class DoubleCarouselView: UIScrollView {
     
-    var items: [String]? {
+    var carouselModel: CarouselModel? {
         didSet {
             var i: CGFloat = 0
             while let view = getPage(withNumber: i) {
@@ -24,7 +24,6 @@ class DoubleCarouselView: UIScrollView {
 
     private let itemHeight: CGFloat = 44
     private let scrollViewHeight: CGFloat = 100
-    private let horizontalItemInsidePadding: CGFloat = 48
     private let horizontalSelfPadding: CGFloat = 20
     private let paddingBetweenItems : CGFloat = 12
     private var contentWidth: CGFloat = 0
@@ -46,41 +45,41 @@ class DoubleCarouselView: UIScrollView {
     }
     
     private func getPage(withNumber number: CGFloat) -> UIView? {
-        guard let items = items, itemIndex < items.count else { return nil }
+        guard let items = carouselModel?.items, itemIndex < items.count else { return nil }
         
         let view = UIView(frame: CGRect(x: number * screenWidth, y: 0, width: screenWidth, height: scrollViewHeight))
         
-        var stringWidth = itemTextWidth(item: items[itemIndex])
+        var itemWidth = carouselModel?.getWidth(at: itemIndex)
         var flag = true
         while itemIndex < items.count && flag {
             switch lineNumber {
             case 1:
                 //прибавил лишнее
-                var size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
+                var size = contentWidth + horizontalSelfPadding + paddingBetweenItems + (itemWidth ?? 0)
                 while size <= screenWidth && itemIndex < items.count {
-                    let carouselItem = button(for: items[itemIndex], originY: 0)
+                    let carouselItem = button(for: itemIndex, originY: 0)
                     view.addSubview(carouselItem)
                     //отнял лишнее
                     contentWidth = size - (contentWidth == 0 ? paddingBetweenItems: horizontalSelfPadding)
                     itemIndex += 1
                     guard itemIndex < items.count else { break }
-                    stringWidth = itemTextWidth(item: items[itemIndex])
-                    size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
+                    itemWidth = carouselModel?.getWidth(at: itemIndex)
+                    size = contentWidth + horizontalSelfPadding + paddingBetweenItems + (itemWidth ?? 0)
                 }
                 contentWidth = 0
                 lineNumber = 2
             case 2:
                 //прибавил лишнее
-                var size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
+                var size = contentWidth + horizontalSelfPadding + paddingBetweenItems + (itemWidth ?? 0)
                 while size <= screenWidth && itemIndex < items.count {
-                    let carouselItem = button(for: items[itemIndex], originY: itemHeight + paddingBetweenItems)
+                    let carouselItem = button(for: itemIndex, originY: itemHeight + paddingBetweenItems)
                     view.addSubview(carouselItem)
                     //отнял лишнее
                     contentWidth = size - (contentWidth == 0 ? paddingBetweenItems: horizontalSelfPadding)
                     itemIndex += 1
                     guard itemIndex < items.count else { break }
-                    stringWidth = itemTextWidth(item: items[itemIndex])
-                    size = contentWidth + horizontalSelfPadding + paddingBetweenItems + horizontalItemInsidePadding + stringWidth
+                    itemWidth = carouselModel?.getWidth(at: itemIndex)
+                    size = contentWidth + horizontalSelfPadding + paddingBetweenItems + (itemWidth ?? 0)
                 }
                 contentWidth = 0
                 lineNumber = 1
@@ -91,24 +90,24 @@ class DoubleCarouselView: UIScrollView {
         return view
     }
     
-    private func button(for item: String, originY: CGFloat) -> DoubleCarouselButton {
+    private func button(for itemIndex: Int, originY: CGFloat) -> UIButton {
+        guard
+            let itemWidth = carouselModel?.getWidth(at: itemIndex),
+            let itemTitle = carouselModel?.items?[itemIndex]
+        else { return UIButton() }
         let btn = DoubleCarouselButton(frame: CGRect(
             x: contentWidth + (contentWidth == 0 ? horizontalSelfPadding: paddingBetweenItems),
             y: originY,
-            width: horizontalItemInsidePadding + itemTextWidth(item: item),
+            width: itemWidth,
             height: itemHeight))
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.2
         paragraphStyle.alignment = NSTextAlignment.center
         let text = NSMutableAttributedString(
-            string: item,
+            string: itemTitle,
             attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         btn.setAttributedTitle(text, for: .normal)
         return btn
-    }
-    
-    private func itemTextWidth(item: String) -> CGFloat {
-        return item.width(font: R.font.sfProDisplayMedium(size: 14))
     }
     
     required init?(coder: NSCoder) {

@@ -51,13 +51,13 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     
     private lazy var carouselView: CarouselView = {
         let carousel = CarouselViewImpl(frame: .zero)
-        carousel.items = presenter?.chips
+        carousel.carouselModel = presenter?.chips
         return carousel
     }()
     
     private lazy var doubleCarouselView: DoubleCarouselView = {
         let carousel = DoubleCarouselView(frame: .zero)
-        carousel.items = presenter?.chips
+        carousel.carouselModel = presenter?.chips
         return carousel
     }()
     

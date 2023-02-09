@@ -13,45 +13,42 @@ protocol CarouselView {
 
 class CarouselViewImpl: UICollectionView, CarouselView {
     
-    var items: [String]? {
+    var carouselModel: CarouselModel? {
         didSet {
-            if let items = items {
+            if let items = carouselModel?.items {
                 if items.count > 10 {
-                    self.items = Array(items[0..<10])
-                }
-                if firstItem == nil {
-                    firstItem = items[0]
+                    carouselModel?.items = Array(items[0..<10])
                 }
             }
         }
     }
     
-    private var firstItem: String?
-    
     private var selectedItems = Set<Int>()
     
     private let height: CGFloat = 44
-    private let horizontalPadding: CGFloat = 48
     
     private var minContentOffset: CGPoint {
-        let firstItemWidth = items?.first?.width(font: R.font.sfProDisplayMedium(size: 14)) ?? 0
+        guard let firstItemWidth = carouselModel?.getWidth(at: 0) else { return CGPoint(x: 0, y: 0) }
         return CGPoint(
-            x: horizontalPadding + firstItemWidth - 8,
+            x: firstItemWidth - 8,
             y: -contentInset.top)
     }
     
     private var isInfiniteScrollable: Bool {
-        if let firstItemWidth = firstItem?.width(font: R.font.sfProDisplayMedium(size: 14)) {
-            return !((contentSize.width - firstItemWidth - horizontalPadding) < bounds.width)
+        if let maxWidth = carouselModel?.getMaxWidth() {
+            return !((contentSize.width - maxWidth + 8) < bounds.width)
         } else {
             return false
         }
     }
     
     private var maxContentOffset: CGPoint {
-        let lastItemWidth = items?.last?.width(font: R.font.sfProDisplayMedium(size: 14)) ?? 0
+        guard
+            let items = carouselModel?.items,
+            let lastItemWidth = carouselModel?.getWidth(at: items.count - 1)
+        else { return CGPoint(x: 0, y: 0) }
         return CGPoint(
-            x: contentSize.width - bounds.width - horizontalPadding - lastItemWidth + 8,
+            x: contentSize.width - bounds.width - lastItemWidth + 8,
             y: contentSize.height - bounds.height + contentInset.bottom)
     }
     
@@ -101,9 +98,9 @@ extension CarouselViewImpl {
             switch contentOffset.x {
             case ...(-20):
                 queue.async { [weak self] in
-                    let last = self?.items?.removeLast()
-                    guard let last = last, let count = self?.items?.count else { return }
-                    self?.items?.insert(last, at: 0)
+                    let last = self?.carouselModel?.items?.removeLast()
+                    guard let last = last, let count = self?.carouselModel?.items?.count else { return }
+                    self?.carouselModel?.items?.insert(last, at: 0)
                     self?.selectedItems = Set(self?.selectedItems.map{
                         ($0 == count) ? ($0 - count): $0 + 1
                     } ?? [])
@@ -116,9 +113,9 @@ extension CarouselViewImpl {
                 }
             case (contentSize.width - bounds.width + 20)...:
                 queue.async { [weak self] in
-                    let first = self?.items?.removeFirst()
-                    guard let first = first, let count = self?.items?.count else { return }
-                    self?.items?.append(first)
+                    let first = self?.carouselModel?.items?.removeFirst()
+                    guard let first = first, let count = self?.carouselModel?.items?.count else { return }
+                    self?.carouselModel?.items?.append(first)
                     self?.selectedItems = Set(self?.selectedItems.map{
                         ($0 == 0) ? count: $0 - 1
                     } ?? [])
@@ -139,7 +136,7 @@ extension CarouselViewImpl {
 extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count = items?.count {
+        if let count = carouselModel?.items?.count {
             return count > 10 ? 10: count
         } else {
             return 0
@@ -149,7 +146,7 @@ extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: ChipsCell.cellIdentifier, for: indexPath) as! ChipsCell
             
-        myCell.chips = items?[indexPath.item]
+        myCell.chips = carouselModel?.items?[indexPath.item]
         if selectedItems.contains(indexPath.item) {
             myCell.isActive = true
         } else {
@@ -170,7 +167,7 @@ extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource
 
 extension CarouselViewImpl: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = items?[indexPath.item].width(font: R.font.sfProDisplayMedium(size: 14))
-        return CGSize(width: (width ?? 0) + horizontalPadding, height: height)
+        let width = carouselModel?.getWidth(at: indexPath.item)
+        return CGSize(width: (width ?? 0), height: height)
     }
 }

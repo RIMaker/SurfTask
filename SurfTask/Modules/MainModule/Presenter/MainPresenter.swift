@@ -8,18 +8,18 @@
 import Foundation
 
 protocol MainPresenter {
-    var chips: [String]? { get }
-    init(view: MainViewController?, chips: [String]?)
+    var chips: CarouselModel? { get }
+    init(view: MainViewController?, chips: CarouselModel?)
     func viewShown()
 }
 
 class MainPresenterImpl: MainPresenter {
     
-    var chips: [String]?
+    var chips: CarouselModel?
     
     private weak var view: MainViewController?
     
-    required init(view: MainViewController?, chips: [String]?) {
+    required init(view: MainViewController?, chips: CarouselModel?) {
         self.view = view
         self.chips = chips
     }
