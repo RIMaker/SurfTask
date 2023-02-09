@@ -34,14 +34,6 @@ class CarouselViewImpl: UICollectionView, CarouselView {
             y: -contentInset.top)
     }
     
-    private var isInfiniteScrollable: Bool {
-        if let maxWidth = carouselModel?.getMaxWidth() {
-            return !((contentSize.width - maxWidth + 8) < bounds.width)
-        } else {
-            return false
-        }
-    }
-    
     private var maxContentOffset: CGPoint {
         guard
             let items = carouselModel?.items,
@@ -68,8 +60,29 @@ class CarouselViewImpl: UICollectionView, CarouselView {
     }
     
     func scrollToMinContentOffset(animated: Bool) {
-        if isInfiniteScrollable {
-            setContentOffset(minContentOffset, animated: animated)
+        isInfiniteScrollable { [weak self] result in
+            if result {
+                DispatchQueue.main.async { [weak self] in
+                    guard let welf = self else { return }
+                    welf.setContentOffset(welf.minContentOffset, animated: animated)
+                }
+            }
+        }
+    }
+    
+    private func isInfiniteScrollable(complete: @escaping (Bool)->()) {
+        if let carouselModel = carouselModel {
+            carouselModel.getMaxWidth { [weak self] maxWidth in
+                DispatchQueue.main.async { [weak self] in
+                    guard let welf = self else {
+                        complete(false)
+                        return
+                    }
+                    complete(!((welf.contentSize.width - maxWidth + 8) < welf.bounds.width))
+                }
+            }
+        } else {
+            complete(false)
         }
     }
     
@@ -93,40 +106,45 @@ class CarouselViewImpl: UICollectionView, CarouselView {
 // MARK: ScrollView delegate
 extension CarouselViewImpl {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if isInfiniteScrollable {
-            let queue = DispatchQueue(label: "myQueue", qos: .userInteractive)
-            switch contentOffset.x {
-            case ...(-20):
-                queue.async { [weak self] in
-                    let last = self?.carouselModel?.items?.removeLast()
-                    guard let last = last, let count = self?.carouselModel?.items?.count else { return }
-                    self?.carouselModel?.items?.insert(last, at: 0)
-                    self?.selectedItems = Set(self?.selectedItems.map{
-                        ($0 == count) ? ($0 - count): $0 + 1
-                    } ?? [])
-                    DispatchQueue.main.async { [weak self] in
-                        UIView.performWithoutAnimation {
-                            self?.reloadData()
-                            self?.scrollToMinContentOffset(animated: false)
+        isInfiniteScrollable { [weak self] result in
+            if result {
+                let queue = DispatchQueue(label: "com.scrollViewDidScroll", qos: .userInteractive)
+                DispatchQueue.main.async { [weak self] in
+                    guard let welf = self else { return }
+                    switch welf.contentOffset.x {
+                    case ...(-20):
+                        queue.async { [weak self] in
+                            let last = self?.carouselModel?.items?.removeLast()
+                            guard let last = last, let count = self?.carouselModel?.items?.count else { return }
+                            self?.carouselModel?.items?.insert(last, at: 0)
+                            self?.selectedItems = Set(self?.selectedItems.map{
+                                ($0 == count) ? ($0 - count): $0 + 1
+                            } ?? [])
+                            DispatchQueue.main.async { [weak self] in
+                                UIView.performWithoutAnimation {
+                                    self?.reloadData()
+                                    self?.scrollToMinContentOffset(animated: false)
+                                }
+                            }
                         }
+                    case (welf.contentSize.width - welf.bounds.width + 20)...:
+                        queue.async { [weak self] in
+                            let first = self?.carouselModel?.items?.removeFirst()
+                            guard let first = first, let count = self?.carouselModel?.items?.count else { return }
+                            self?.carouselModel?.items?.append(first)
+                            self?.selectedItems = Set(self?.selectedItems.map{
+                                ($0 == 0) ? count: $0 - 1
+                            } ?? [])
+                            DispatchQueue.main.async { [weak self] in
+                                UIView.performWithoutAnimation {
+                                    self?.reloadData()
+                                    self?.scrollToMaxContentOffset(animated: false)
+                                }
+                            }
+                        }
+                    default: break
                     }
                 }
-            case (contentSize.width - bounds.width + 20)...:
-                queue.async { [weak self] in
-                    let first = self?.carouselModel?.items?.removeFirst()
-                    guard let first = first, let count = self?.carouselModel?.items?.count else { return }
-                    self?.carouselModel?.items?.append(first)
-                    self?.selectedItems = Set(self?.selectedItems.map{
-                        ($0 == 0) ? count: $0 - 1
-                    } ?? [])
-                    DispatchQueue.main.async { [weak self] in
-                        UIView.performWithoutAnimation {
-                            self?.reloadData()
-                            self?.scrollToMaxContentOffset(animated: false)
-                        }
-                    }
-                }
-            default: break
             }
         }
     }

@@ -29,13 +29,19 @@ struct ChipsModel: CarouselModel {
         return items[index].width(font: R.font.sfProDisplayMedium(size: 14)) + horizontalPadding
     }
     
-    func getMaxWidth() -> CGFloat {
-        guard let items = items else { return 0 }
-        var maxWidth: CGFloat = 0
-        for i in 0..<items.count {
-            maxWidth = max(maxWidth, getWidth(at: i))
+    func getMaxWidth(complete: @escaping (CGFloat)->()) {
+        let queue = DispatchQueue(label: "com.getMaxWidthQueue", qos: .userInteractive)
+        queue.async {
+            guard let items = items else {
+                complete(0)
+                return
+            }
+            var maxWidth: CGFloat = 0
+            for i in 0..<items.count {
+                maxWidth = max(maxWidth, getWidth(at: i))
+            }
+            complete(maxWidth)
         }
-        return maxWidth
     }
     
 }

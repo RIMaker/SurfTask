@@ -10,5 +10,5 @@ import Foundation
 protocol CarouselModel {
     var items: [String]? { get set }
     func getWidth(at index: Int) -> CGFloat
-    func getMaxWidth() -> CGFloat
+    func getMaxWidth(complete: @escaping (CGFloat)->())
 }
