@@ -87,7 +87,8 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         presenter?.viewShown()
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         carouselView.scrollToMinContentOffset(animated: false)
     }
     
