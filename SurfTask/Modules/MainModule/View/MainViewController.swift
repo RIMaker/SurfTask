@@ -27,25 +27,18 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         contentView: contentContainerView,
         backgroundViewImage: R.image.backgroundImage())
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = R.font.sfProDisplayBold(size: 24)
-        label.textColor = R.color.darkTextColor()
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.12
-        label.attributedText = NSMutableAttributedString(
-            string: R.string.localization.mainViewTitle(),
-            attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+    private lazy var titleLabel: SurfLabel = {
+        let label = SurfLabel(withText: R.string.localization.mainViewTitle(), type: .title)
         return label
     }()
     
-    private lazy var mainDescription: DescriptionLabel = {
-        let label = DescriptionLabel(with: R.string.localization.mainDescription())
+    private lazy var mainDescription: SurfLabel = {
+        let label = SurfLabel(withText: R.string.localization.mainDescription(), type: .description)
         return label
     }()
     
-    private lazy var secondaryDescription: DescriptionLabel = {
-        let label = DescriptionLabel(with: R.string.localization.secondaryDescription())
+    private lazy var secondaryDescription: SurfLabel = {
+        let label = SurfLabel(withText: R.string.localization.secondaryDescription(), type: .description)
         return label
     }()
     

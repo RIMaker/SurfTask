@@ -25,7 +25,7 @@
 		7CA0E75B29900208006B5166 /* ChipsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0E75A29900208006B5166 /* ChipsModel.swift */; };
 		7CA0E75F2990F5B6006B5166 /* String + width.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0E75E2990F5B6006B5166 /* String + width.swift */; };
 		7CA0E7612990F77D006B5166 /* DoubleCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0E7602990F77D006B5166 /* DoubleCarouselView.swift */; };
-		7CA8109929923D37006C409A /* DescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA8109829923D37006C409A /* DescriptionLabel.swift */; };
+		7CA8109929923D37006C409A /* SurfLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA8109829923D37006C409A /* SurfLabel.swift */; };
 		7CBC86D4298F9AC700BDB488 /* ChipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */; };
 		7CBC86D6298F9B3100BDB488 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D5298F9B3100BDB488 /* CarouselView.swift */; };
 		7CBC86D8298FB84D00BDB488 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC86D7298FB84D00BDB488 /* ContainerView.swift */; };
@@ -55,7 +55,7 @@
 		7CA0E75A29900208006B5166 /* ChipsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsModel.swift; sourceTree = "<group>"; };
 		7CA0E75E2990F5B6006B5166 /* String + width.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + width.swift"; sourceTree = "<group>"; };
 		7CA0E7602990F77D006B5166 /* DoubleCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleCarouselView.swift; sourceTree = "<group>"; };
-		7CA8109829923D37006C409A /* DescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionLabel.swift; sourceTree = "<group>"; };
+		7CA8109829923D37006C409A /* SurfLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfLabel.swift; sourceTree = "<group>"; };
 		7CBC86D3298F9AC700BDB488 /* ChipsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsCell.swift; sourceTree = "<group>"; };
 		7CBC86D5298F9B3100BDB488 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		7CBC86D7298FB84D00BDB488 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 				7CBC86D7298FB84D00BDB488 /* ContainerView.swift */,
 				7CA0E757298FF0CF006B5166 /* BottomView.swift */,
 				7CA0E7602990F77D006B5166 /* DoubleCarouselView.swift */,
-				7CA8109829923D37006C409A /* DescriptionLabel.swift */,
+				7CA8109829923D37006C409A /* SurfLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 				7C15173A298D237B004DDDD0 /* SceneDelegate.swift in Sources */,
 				7C15176F298E968B004DDDD0 /* ModalView.swift in Sources */,
 				7C15174C298D374D004DDDD0 /* ViewFactory.swift in Sources */,
-				7CA8109929923D37006C409A /* DescriptionLabel.swift in Sources */,
+				7CA8109929923D37006C409A /* SurfLabel.swift in Sources */,
 				7C35426D2995412300914A1A /* CarouselModel.swift in Sources */,
 				7C15176D298D6262004DDDD0 /* R.generated.swift in Sources */,
 				7CA0E7612990F77D006B5166 /* DoubleCarouselView.swift in Sources */,

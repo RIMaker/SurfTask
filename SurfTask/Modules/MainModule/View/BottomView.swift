@@ -26,8 +26,8 @@ class BottomView: UIView {
         return btn
     }()
     
-    private lazy var primaryDescription: DescriptionLabel = {
-        let lbl = DescriptionLabel(with: R.string.localization.primaryButtonDescription())
+    private lazy var primaryDescription: SurfLabel = {
+        let lbl = SurfLabel(withText: R.string.localization.primaryButtonDescription(), type: .description)
         return lbl
     }()
 
