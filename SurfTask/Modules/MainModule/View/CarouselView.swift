@@ -165,11 +165,7 @@ extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: ChipsCell.cellIdentifier, for: indexPath) as! ChipsCell
             
         myCell.chips = carouselModel?.items?[indexPath.item]
-        if selectedItems.contains(indexPath.item) {
-            myCell.isActive = true
-        } else {
-            myCell.isActive = false
-        }
+        myCell.isActive = selectedItems.contains(indexPath.item)
         
         return myCell
     }
