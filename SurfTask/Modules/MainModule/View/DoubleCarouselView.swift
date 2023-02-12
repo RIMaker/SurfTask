@@ -42,7 +42,7 @@ class DoubleCarouselView: UIScrollView {
         backgroundColor = R.color.mainViewBackgroundColor()
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
-        heightAnchor.constraint(equalToConstant: 100).isActive = true
+        heightAnchor.constraint(equalToConstant: scrollViewHeight).isActive = true
     }
     
     private func getPage(withNumber number: CGFloat) -> UIView? {
