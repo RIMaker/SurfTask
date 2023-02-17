@@ -64,7 +64,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
         }
         container.add(subview: secondaryDescription, topPadding: 24, leadingPadding: 20, trailingPadding: 20)
         container.add(subview: doubleCarouselView, topPadding: 12)
-        container.add(subview: spacer, bottomPadding: -118)
+        container.add(subview: spacer, bottomPadding: 0)
         
         container.backgroundColor = R.color.mainViewBackgroundColor()
         return container

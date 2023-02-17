@@ -36,7 +36,7 @@ class ContainerView: UIView {
         ])
         if let bottomPadding = bottomPadding {
             subview.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
+                greaterThanOrEqualTo: bottomAnchor,
                 constant: -bottomPadding)
             .isActive = true
         }
