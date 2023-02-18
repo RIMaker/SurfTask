@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol CarouselView {
-    func scrollToMinContentOffset(animated: Bool)
-}
-
-class CarouselViewImpl: UICollectionView, CarouselView {
+class CarouselView: UICollectionView {
     
     var carouselModel: CarouselModel? {
         didSet {
@@ -59,17 +55,6 @@ class CarouselViewImpl: UICollectionView, CarouselView {
         fatalError("init(coder) is not implemented")
     }
     
-    func scrollToMinContentOffset(animated: Bool) {
-        isInfiniteScrollable { [weak self] result in
-            if result {
-                DispatchQueue.main.async { [weak self] in
-                    guard let welf = self else { return }
-                    welf.setContentOffset(welf.minContentOffset, animated: animated)
-                }
-            }
-        }
-    }
-    
     private func isInfiniteScrollable(complete: @escaping (Bool)->()) {
         if let carouselModel = carouselModel {
             carouselModel.getMaxWidth { [weak self] maxWidth in
@@ -84,6 +69,10 @@ class CarouselViewImpl: UICollectionView, CarouselView {
         } else {
             complete(false)
         }
+    }
+    
+    private func scrollToMinContentOffset(animated: Bool) {
+        setContentOffset(minContentOffset, animated: animated)
     }
     
     private func scrollToMaxContentOffset(animated: Bool) {
@@ -104,7 +93,7 @@ class CarouselViewImpl: UICollectionView, CarouselView {
 }
 
 // MARK: ScrollView delegate
-extension CarouselViewImpl {
+extension CarouselView {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         isInfiniteScrollable { [weak self] result in
             if result {
@@ -151,7 +140,7 @@ extension CarouselViewImpl {
 }
 
 // MARK: Delegate
-extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CarouselView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = carouselModel?.items?.count {
@@ -179,7 +168,7 @@ extension CarouselViewImpl: UICollectionViewDelegate, UICollectionViewDataSource
     }
 }
 
-extension CarouselViewImpl: UICollectionViewDelegateFlowLayout {
+extension CarouselView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = carouselModel?.getWidth(at: indexPath.item)
         return CGSize(width: (width ?? 0), height: height)
