@@ -85,6 +85,7 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     
     func setupViews() {
         view.addSubview(bottomView)
+        bottomView.delegate = self
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -95,3 +96,15 @@ class MainViewControllerImpl: UIViewController, MainViewController {
     }
 }
 
+extension MainViewControllerImpl: BottomViewDelegate {
+    
+    func onButtonTapped() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.showAlert(
+            title: R.string.localization.primaryButtonAlertTitle(),
+            message: R.string.localization.primaryButtonAlertMessage(),
+            actionTitle: R.string.localization.primaryButtonAlertActionTitle()
+        )
+    }
+    
+}
